@@ -88,6 +88,10 @@ class UserController extends Controller
     {
         $user = User::find($id);
 
+        if($user == null){
+            return ['status' => 200, 'message' => "Usuário não encontrado!", "usuario" => $user];
+        }
+
         $user->delete($id);
 
         return ['status' => 200, 'message' => "Usuário deletado com sucesso!", "usuario" => $user];
