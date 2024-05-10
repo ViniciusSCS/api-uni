@@ -21,9 +21,11 @@ class UserController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function me(Request $request)
     {
-        //
+        $user = User::where('id', $request->user()->id)->get();
+
+        return ['status' => true, 'message' => 'Usuário logado!', "usuario" => $user];
     }
 
     /**

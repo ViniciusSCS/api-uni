@@ -21,6 +21,7 @@ Route::post('/cadastrar', [UserController::class, 'store']);
 
 
 Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/user', [UserController::class, 'me']);
     Route::get('/user/listar', [UserController::class, 'index']);
     Route::get('/user/visualizar/{id}', [UserController::class, 'show']);
     Route::put('/user/atualizar/{id}', [UserController::class, 'update']);
