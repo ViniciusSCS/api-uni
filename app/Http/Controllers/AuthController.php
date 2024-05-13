@@ -16,7 +16,7 @@ class AuthController extends Controller
             $user = Auth::user();
 
             if($user->deleted_at != null){
-                return ['status' => true, 'message' => 'Usuário inexistente, realize o cadastro! Ou fale com o Administrador!'];
+                return ['status' => true, 'message' => 'Usuário inexistente, realize o cadastro, ou fale com o Administrador!'];
             }
 
             $user->token = $user->createToken($user->email)->accessToken;
