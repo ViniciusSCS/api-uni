@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -90,8 +91,12 @@ class UserController extends Controller
     {
         $user = User::find($id);
 
+        if(Auth::user()->id == $id){
+            return ['status' => 200, 'message' => "Você não pode se excluir!"];
+        }
+
         if($user == null){
-            return ['status' => 200, 'message' => "Usuário não encontrado!", "usuario" => $user];
+            return ['status' => 200, 'message' => "Usuário não encontrado!"];
         }
 
         $user->delete($id);
