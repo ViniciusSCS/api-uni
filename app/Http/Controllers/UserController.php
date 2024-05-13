@@ -75,6 +75,10 @@ class UserController extends Controller
         $data = $request->all();
         $user = User::find($id);
 
+        if(Auth::user()->id != $id){
+            return ['status' => 200, 'message' => "Você não pode atualizar esse usuário!"];
+        }
+
         if($user == null){
             return ['status' => 200, 'message' => "Usuário não encontrado!", "usuario" => $user];
         }
