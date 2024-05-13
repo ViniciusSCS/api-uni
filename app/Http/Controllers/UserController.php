@@ -103,7 +103,11 @@ class UserController extends Controller
             return ['status' => 200, 'message' => "Usuário não encontrado!"];
         }
 
-        $user->delete($id);
+        $data = [
+            'deleted_at' => now()
+        ];
+
+        $user->update($data);
 
         return ['status' => 200, 'message' => "Usuário deletado com sucesso!", "usuario" => $user];
     }

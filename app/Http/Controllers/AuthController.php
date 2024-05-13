@@ -15,6 +15,10 @@ class AuthController extends Controller
         if (Auth::attempt(['email' => strtolower($data['email']), 'password' => $data['password']])) {
             $user = Auth::user();
 
+            if($user->deleted_at != null){
+                return ['status' => true, 'message' => 'Usuário inexistente, realize o cadastro! Ou fale com o Administrador!'];
+            }
+
             $user->token = $user->createToken($user->email)->accessToken;
 
             return ['status' => true, 'message' => 'Usuário logado com sucesso!', "usuario" => $user];

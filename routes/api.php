@@ -21,9 +21,12 @@ Route::post('/cadastrar', [UserController::class, 'store']);
 
 
 Route::middleware('auth:api')->group(function () {
-    Route::get('/user', [UserController::class, 'me']);
-    Route::get('/user/listar', [UserController::class, 'index']);
-    Route::get('/user/visualizar/{id}', [UserController::class, 'show']);
-    Route::put('/user/atualizar/{id}', [UserController::class, 'update']);
-    Route::delete('/user/deletar/{id}', [UserController::class, 'destroy']);
+    Route::prefix('user')->group(function () {
+        Route::get('/', [UserController::class, 'me']);
+        Route::get('/listar', [UserController::class, 'index']);
+        Route::get('/visualizar/{id}', [UserController::class, 'show']);
+        Route::put('/atualizar/{id}', [UserController::class, 'update']);
+        Route::delete('/deletar/{id}', [UserController::class, 'destroy']);
+    });
+
 });
