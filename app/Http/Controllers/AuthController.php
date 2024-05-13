@@ -15,10 +15,9 @@ class AuthController extends Controller
         if (Auth::attempt(['email' => strtolower($data['email']), 'password' => $data['password']])) {
             $user = Auth::user();
 
-            $user = User::find($user->id);
-            $token = $user->createToken('JWT')->plainTextToken;
+            $user->token = $user->createToken($user->email)->accessToken;
 
-            return ['status' => true, 'message' => 'Usuário logado com sucesso!', "usuario" => $user, "token" => $token];
+            return ['status' => true, 'message' => 'Usuário logado com sucesso!', "usuario" => $user];
         } else {
             return ['status' => false, 'message' => 'Usuário ou senha incorretos!'];
         }

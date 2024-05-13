@@ -20,7 +20,7 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::post('/cadastrar', [UserController::class, 'store']);
 
 
-Route::middleware('auth:sanctum')->group(function () {
+Route::middleware('auth:api')->group(function () {
     Route::get('/user', [UserController::class, 'me']);
     Route::get('/user/listar', [UserController::class, 'index']);
     Route::get('/user/visualizar/{id}', [UserController::class, 'show']);
