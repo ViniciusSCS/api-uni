@@ -24,7 +24,7 @@ class UserController extends Controller
      */
     public function me(Request $request)
     {
-        $user = User::where('id', $request->user()->id)->get();
+        $user = Auth::user();
 
         return ['status' => true, 'message' => 'Usuário logado!', "usuario" => $user];
     }
