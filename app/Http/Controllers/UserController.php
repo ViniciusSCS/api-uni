@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Exibe a listagem dos usuários cadastrados.
      */
     public function index()
     {
@@ -19,15 +19,7 @@ class UserController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
+     * Salva os dados do usuário criado no banco de dados.
      */
     public function store(UserRequest $request)
     {
@@ -43,7 +35,7 @@ class UserController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Visualiza o usuário cadastrado pelo id.
      */
     public function show(string $id)
     {
@@ -57,15 +49,7 @@ class UserController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
+     * Atualiza os dados do usuário pelo id, porem o id logado consegue atualizar o próprio dado.
      */
     public function update(Request $request, string $id)
     {
@@ -82,7 +66,7 @@ class UserController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Deleta os dados cadastrados do usuário cadastrado.
      */
     public function destroy(string $id)
     {
