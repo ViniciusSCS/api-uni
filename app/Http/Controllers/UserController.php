@@ -22,7 +22,7 @@ class UserController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function me(Request $request)
+    public function me()
     {
         $user = Auth::user();
 
@@ -57,14 +57,6 @@ class UserController extends Controller
         }
 
         return ['status' => 200, 'message' => "Usuário encontrado com sucesso!", "usuario" => $user];
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
     }
 
     /**
