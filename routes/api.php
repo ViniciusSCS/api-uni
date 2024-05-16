@@ -28,5 +28,4 @@ Route::middleware('auth:api')->group(function () {
         Route::put('/atualizar/{id}', [UserController::class, 'update']);
         Route::delete('/deletar/{id}', [UserController::class, 'destroy']);
     });
-
 });
