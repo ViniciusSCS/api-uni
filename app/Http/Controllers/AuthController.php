@@ -16,7 +16,7 @@ class AuthController extends Controller
             $user = Auth::user();
 
             $user = User::find($user->id);
-            $user->token = $user->createToken('JWT')->plainTextToken;
+            $user->token = $user->createToken($user->email)->plainTextToken;
 
             return ['status' => true, 'message' => 'Usuário logado com sucesso!', "usuario" => $user];
         } else {
