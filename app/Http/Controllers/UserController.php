@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -13,7 +14,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $user = User::get();
+        $user = User::all();
 
         return ['status' => 200, 'message' => "Usuário encontrado com sucesso!", "usuario" => $user];
     }
@@ -23,7 +24,7 @@ class UserController extends Controller
      */
     public function me(Request $request)
     {
-        $user = User::where('id', $request->user()->id)->get();
+        $user = Auth::user();
 
         return ['status' => true, 'message' => 'Usuário logado!', "usuario" => $user];
     }
@@ -52,7 +53,7 @@ class UserController extends Controller
         $user = User::find($id);
 
         if($user == null){
-            return ['status' => 200, 'message' => "Usuário não encontrado!", "usuario" => $user];
+            return ['status' => 200, 'message' => "Usuário não encontrado!"];
         }
 
         return ['status' => 200, 'message' => "Usuário encontrado com sucesso!", "usuario" => $user];
@@ -75,7 +76,11 @@ class UserController extends Controller
         $user = User::find($id);
 
         if($user == null){
-            return ['status' => 200, 'message' => "Usuário não encontrado!", "usuario" => $user];
+            return ['status' => 200, 'message' => "Usuário não encontrado!"];
+        }
+
+        if(Auth::user()->id != $user->id){
+            return ['status' => 200, 'message' => "Usuário não pode ser atualizado!"];
         }
 
         $user->update($data);
@@ -94,7 +99,19 @@ class UserController extends Controller
             return ['status' => 200, 'message' => "Usuário não encontrado!", "usuario" => $user];
         }
 
-        $user->delete($id);
+        if(Auth::user()->id == $user->id){
+            return ['status' => 200, 'message' => "Você não pode se deletar!"];
+        }
+
+        if($user->deleted_at != null){
+            return ['status' => 200, 'message' => "Usuário já deletado!"];
+        }
+
+        $data = [
+            'deleted_at' => now()
+        ];
+
+        $user->update($data);
 
         return ['status' => 200, 'message' => "Usuário deletado com sucesso!", "usuario" => $user];
     }
