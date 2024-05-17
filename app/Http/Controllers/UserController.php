@@ -92,7 +92,7 @@ class UserController extends Controller
         }
 
         if($user == null){
-            return ['status' => 200, 'message' => "Usuário não encontrado!"];
+            return ['status' => 404, 'message' => "Usuário não encontrado!"];
         }
 
         if($user->deleted_at != null){
