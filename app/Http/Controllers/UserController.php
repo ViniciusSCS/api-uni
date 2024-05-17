@@ -53,7 +53,7 @@ class UserController extends Controller
         $user = User::find($id);
 
         if($user == null){
-            return ['status' => 200, 'message' => "Usuário não encontrado!", "usuario" => $user];
+            return ['status' => 404, 'message' => "Usuário não encontrado!", "usuario" => $user];
         }
 
         return ['status' => 200, 'message' => "Usuário encontrado com sucesso!", "usuario" => $user];
@@ -68,11 +68,11 @@ class UserController extends Controller
         $user = User::find($id);
 
         if(Auth::user()->id != $id){
-            return ['status' => 200, 'message' => "Você não pode atualizar esse usuário!"];
+            return ['status' => 403, 'message' => "Você não pode atualizar esse usuário!"];
         }
 
         if($user == null){
-            return ['status' => 200, 'message' => "Usuário não encontrado!", "usuario" => $user];
+            return ['status' => 404, 'message' => "Usuário não encontrado!", "usuario" => $user];
         }
 
         $user->update($data);
@@ -88,7 +88,7 @@ class UserController extends Controller
         $user = User::find($id);
 
         if(Auth::user()->id == $id){
-            return ['status' => 200, 'message' => "Você não pode se excluir!"];
+            return ['status' => 401, 'message' => "Você não pode se excluir!"];
         }
 
         if($user == null){
