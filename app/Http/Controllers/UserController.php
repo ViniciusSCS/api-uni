@@ -42,7 +42,7 @@ class UserController extends Controller
             'password' => bcrypt($data['password']),
         ]);
 
-        return ['status' => 200, 'message' => "Usuário criado com sucesso!", "usuario" => $user];
+        return ['status' => 201, 'message' => "Usuário criado com sucesso!", "usuario" => $user];
     }
 
     /**
