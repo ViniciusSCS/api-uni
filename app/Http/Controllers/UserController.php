@@ -89,14 +89,10 @@ class UserController extends Controller
 
         if(Auth::user()->id == $id){
             return ['status' => 401, 'message' => "Você não pode se excluir!"];
-        }
-
-        if($user == null){
+        }else if($user == null){
             return ['status' => 404, 'message' => "Usuário não encontrado!"];
-        }
-
-        if($user->deleted_at != null){
-            return ['status' => 200, 'message' => "Usuário já excluído!"];
+        } else if($user->deleted_at != null){
+            return ['status' => 410, 'message' => "Usuário já excluído!"];
         }
 
         $data = [
