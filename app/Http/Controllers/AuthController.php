@@ -16,14 +16,14 @@ class AuthController extends Controller
             $user = Auth::user();
 
             if($user->deleted_at != null){
-                return ['status' => true, 'message' => 'Usuário inexistente, realize o cadastro, ou fale com o Administrador!'];
+                return ['status' => 200, 'message' => 'Usuário inexistente, realize o cadastro, ou fale com o Administrador!'];
             }
 
             $user->token = $user->createToken($user->email)->accessToken;
 
-            return ['status' => true, 'message' => 'Usuário logado com sucesso!', "usuario" => $user];
+            return ['status' => 200, 'message' => 'Usuário logado com sucesso!', "usuario" => $user];
         } else {
-            return ['status' => false, 'message' => 'Usuário ou senha incorretos!'];
+            return ['status' => 401, 'message' => 'Usuário ou senha incorretos!'];
         }
     }
 }

@@ -26,7 +26,7 @@ class UserController extends Controller
     {
         $user = Auth::user();
 
-        return ['status' => true, 'message' => 'Usuário logado!', "usuario" => $user];
+        return ['status' => 200, 'message' => 'Usuário logado!', "usuario" => $user];
     }
 
     /**
