@@ -6,6 +6,7 @@ use App\Http\Requests\UserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Ramsey\Uuid\Uuid;
 
 class UserController extends Controller
 {
@@ -37,6 +38,7 @@ class UserController extends Controller
         $data = $request->all();
 
         $user = User::create([
+            'uuid' => (string) Uuid::uuid4(),
             'name' => $data['name'],
             'email' => strtolower($data['email']),
             'password' => bcrypt($data['password']),
@@ -48,9 +50,9 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $uuid)
     {
-        $user = User::find($id);
+        $user = User::where('uuid', $uuid)->get();
 
         if($user == null){
             return ['status' => 404, 'message' => "Usuário não encontrado!", "usuario" => $user];
@@ -62,12 +64,12 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $uuid)
     {
         $data = $request->all();
-        $user = User::find($id);
+        $user = User::where('uuid', $uuid)->first();
 
-        if(Auth::user()->id != $id){
+        if(Auth::user()->uuid != $uuid){
             return ['status' => 403, 'message' => "Você não pode atualizar esse usuário!"];
         }
 
@@ -83,11 +85,11 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $uuid)
     {
-        $user = User::find($id);
+        $user = User::where('uuid', $uuid)->first();
 
-        if(Auth::user()->id == $id){
+        if(Auth::user()->uuid == $uuid){
             return ['status' => 401, 'message' => "Você não pode se excluir!"];
         }else if($user == null){
             return ['status' => 404, 'message' => "Usuário não encontrado!"];
@@ -96,7 +98,7 @@ class UserController extends Controller
         }
 
         $data = [
-            'deleted_at' => now()
+            'deleted_at' => now(),
         ];
 
         $user->update($data);

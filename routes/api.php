@@ -24,8 +24,8 @@ Route::middleware('auth:api')->group(function () {
     Route::prefix('user')->group(function () {
         Route::get('/', [UserController::class, 'me']);
         Route::get('/listar', [UserController::class, 'index']);
-        Route::get('/visualizar/{id}', [UserController::class, 'show']);
-        Route::put('/atualizar/{id}', [UserController::class, 'update']);
-        Route::delete('/deletar/{id}', [UserController::class, 'destroy']);
+        Route::get('/visualizar/{uuid}', [UserController::class, 'show']);
+        Route::put('/atualizar/{uuid}', [UserController::class, 'update']);
+        Route::delete('/deletar/{uuid}', [UserController::class, 'destroy']);
     });
 });
