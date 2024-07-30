@@ -22,12 +22,7 @@ return ['status' => 200, 'message' => "Usuário encontrado com sucesso!", "usuar
     /**
      * Apresenta informações do usuário Logado.
      */
-    public function me()
-    {
-        $user = Auth::user();
-
-                    return ['status' => 200, 'message' => 'Usuário logado!', "usuario" => $user];
-    }
+    public function me(){ $user = Auth::user(); return ['status' => 200, 'message' => 'Usuário logado!', "usuario" => $user];   }
 
                             /**
                              * Salva os dados do usuário criado no banco de dados.
