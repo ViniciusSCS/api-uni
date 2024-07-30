@@ -13,10 +13,10 @@ class UserController extends Controller
      * Exibe a listagem dos usuários cadastrados.
      */
     public function index()
-    {
-        $user = User::whereNull('deleted_at')->get();
+{
+$user = User::whereNull('deleted_at')->get();
 
-        return ['status' => 200, 'message' => "Usuário encontrado com sucesso!", "usuario" => $user];
+return ['status' => 200, 'message' => "Usuário encontrado com sucesso!", "usuario" => $user];
     }
 
     /**
@@ -26,24 +26,24 @@ class UserController extends Controller
     {
         $user = Auth::user();
 
-        return ['status' => 200, 'message' => 'Usuário logado!', "usuario" => $user];
+                    return ['status' => 200, 'message' => 'Usuário logado!', "usuario" => $user];
     }
 
-    /**
-     * Salva os dados do usuário criado no banco de dados.
-     */
-    public function store(UserRequest $request)
-    {
-        $data = $request->all();
+                            /**
+                             * Salva os dados do usuário criado no banco de dados.
+                             */
+                            public function store(UserRequest $request)
+                            {
+                                $data = $request->all();
 
-        $user = User::create([
-            'name' => $data['name'],
-            'email' => strtolower($data['email']),
-            'password' => bcrypt($data['password']),
-        ]);
+                                                    $user = User::create([
+                                                        'name' => $data['name'],
+                                                        'email' => strtolower($data['email']),
+                                                        'password' => bcrypt($data['password']),
+                                                    ]);
 
-        return ['status' => 201, 'message' => "Usuário criado com sucesso!", "usuario" => $user];
-    }
+                                return ['status' => 201, 'message' => "Usuário criado com sucesso!", "usuario" => $user];
+                            }
 
     /**
      * Visualiza o usuário cadastrado pelo id.
@@ -60,7 +60,7 @@ class UserController extends Controller
     }
 
     /**
-     * Atualiza os dados do usuário pelo id, porem o id logado consegue atualizar o próprio dado.
+     * Updates user data by id, however the logged-in id can update its own data.
      */
     public function update(Request $request, string $id)
     {
@@ -85,22 +85,22 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        $user = User::find($id);
+$user = User::find($id);
 
-        if(Auth::user()->id == $id){
-            return ['status' => 401, 'message' => "Você não pode se excluir!"];
-        }else if($user == null){
-            return ['status' => 404, 'message' => "Usuário não encontrado!"];
-        } else if($user->deleted_at != null){
-            return ['status' => 410, 'message' => "Usuário já excluído!"];
-        }
+if(Auth::user()->id == $id){
+    return ['status' => 401, 'message' => "Você não pode se excluir!"];
+}else if($user == null){
+    return ['status' => 404, 'message' => "Usuário não encontrado!"];
+} else if($user->deleted_at != null){
+    return ['status' => 410, 'message' => "Usuário já excluído!"];
+}
 
         $data = [
-            'deleted_at' => now()
+        'deleted_at' => now()
         ];
 
-        $user->update($data);
+$user->update($data);
 
-        return ['status' => 200, 'message' => "Usuário deletado com sucesso!", "usuario" => $user];
+return ['status' => 200, 'message' => "Usuário deletado com sucesso!", "usuario" => $user];
     }
 }
