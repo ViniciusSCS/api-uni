@@ -36,11 +36,11 @@ return ['status' => 200, 'message' => "Usuário encontrado com sucesso!", "usuar
                             {
                                 $data = $request->all();
 
-                                                    $user = User::create([
-                                                        'name' => $data['name'],
-                                                        'email' => strtolower($data['email']),
-                                                        'password' => bcrypt($data['password']),
-                                                    ]);
+                    $user = User::create([
+                            'name' => $data['name'],
+'email' => strtolower($data['email']),
+          'password' => bcrypt($data['password']),
+                    ]);
 
                                 return ['status' => 201, 'message' => "Usuário criado com sucesso!", "usuario" => $user];
                             }
@@ -64,20 +64,20 @@ return ['status' => 200, 'message' => "Usuário encontrado com sucesso!", "usuar
      */
     public function update(Request $request, string $id)
     {
-        $data = $request->all();
-        $user = User::find($id);
+                    $data = $request->all();
+                    $user = User::find($id);
 
-        if(Auth::user()->id != $id){
-            return ['status' => 403, 'message' => "Você não pode atualizar esse usuário!"];
-        }
+    if(Auth::user()->id != $id){
+        return ['status' => 403, 'message' => "Você não pode atualizar esse usuário!"];
+    }
 
         if($user == null){
             return ['status' => 404, 'message' => "Usuário não encontrado!", "usuario" => $user];
         }
 
-        $user->update($data);
+$user->update($data);
 
-        return ['status' => 200, 'message' => "Usuário atualizado com sucesso!", "usuario" => $user];
+return ['status' => 200, 'message' => "Usuário atualizado com sucesso!", "usuario" => $user];
     }
 
     /**
