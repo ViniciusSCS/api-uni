@@ -47,7 +47,7 @@ class UserRequest extends FormRequest
             'string' => 'O campo :attribute deve ser uma string.',
             'max' => 'O campo :attribute deve ter no máximo :max.',
             'email' => 'O campo :attribute não é válido',
-            'unique' => 'O campo :attribute deve ser único.',
+            'unique' => 'O campo :attribute já cadastrado.',
             'confirmed' => 'O campo :attribute não confere.',
             'same' => 'Os campos confirmação da senha e senha devem corresponder.',
             'min' => 'O campo :attribute deve ter no mínimo :min caracteres.',
