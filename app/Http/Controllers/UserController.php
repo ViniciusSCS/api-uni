@@ -14,7 +14,7 @@ class UserController extends Controller
      */
     public function index()
 {
-$user = User::whereNull('deleted_at')->get();
+                                                        $user = User::whereNull('deleted_at')->get();
 
 return ['status' => 200, 'message' => "Usuário encontrado com sucesso!", "usuario" => $user];
     }
@@ -87,13 +87,8 @@ return ['status' => 200, 'message' => "Usuário atualizado com sucesso!", "usuar
     {
 $user = User::find($id);
 
-if(Auth::user()->id == $id){
-    return ['status' => 401, 'message' => "Você não pode se excluir!"];
-}else if($user == null){
-    return ['status' => 404, 'message' => "Usuário não encontrado!"];
-} else if($user->deleted_at != null){
-    return ['status' => 410, 'message' => "Usuário já excluído!"];
-}
+if(Auth::user()->id == $id){ return ['status' => 401, 'message' => "Você não pode se excluir!"]; }else if($user == null){ return ['status' => 404, 'message' => "Usuário não encontrado!"];
+} else if($user->deleted_at != null){ return ['status' => 410, 'message' => "Usuário já excluído!"];}
 
         $data = [
         'deleted_at' => now()
